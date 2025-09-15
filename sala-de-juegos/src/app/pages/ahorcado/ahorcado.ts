@@ -17,5 +17,23 @@ export class Ahorcado {
     "TRABAJO", "CIUDAD"
   ];
   palabraElejida: string = '';
-  palabraUsuario: string = '';
+  palabraUsuario: string[] = [];
+  vidas: number = 6;
+
+  ngOnInit(){
+    this.palabraElejida = this.getPalabra();
+    this.palabraVaciaInicial();
+  }
+
+  getPalabra(): string{
+    let word = this.palabras[Math.floor(Math.random() * this.palabras.length)];
+    
+    return word;
+  }
+
+  palabraVaciaInicial(){
+    for(let i = 0; i < this.palabraElejida.length; i++) {
+      this.palabraUsuario[i] = '_';
+    }
+  }
 }

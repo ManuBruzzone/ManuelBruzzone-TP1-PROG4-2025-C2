@@ -18,14 +18,20 @@
 
 
 .ahorcado-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     background-color: transparent;
     height: 100%;
     width: 100%;
 }
 
-/* .game-input {
-    
-} */
+.ahorcado-palabra {
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+}
 
 .ahorcado-teclado {
     background-color: #a8d0ff;
@@ -38,6 +44,7 @@
     flex-direction: column;
     gap: 2px;
 }
+
 
 .btn-letra {
     font-family: "Josefin Sans", sans-serif;

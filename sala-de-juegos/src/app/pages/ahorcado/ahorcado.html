@@ -1,8 +1,15 @@
 <div class="game-container">
     <div class="game">
         <div class="ahorcado-section">
-            <div class="game-input">
-                
+            <div class="ahorcado-img">
+                @if (vidas === 6) {
+                    <img src="" alt="">
+                }
+            </div>
+            <div class="ahorcado-palabra">
+                @for(letra of palabraUsuario; track $index) {
+                    <p>{{letra}}</p>
+                }
             </div>
         </div>
         <div class="ahorcado-teclado">
