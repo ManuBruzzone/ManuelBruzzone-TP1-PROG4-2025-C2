@@ -1,0 +1,11 @@
+html, body {
+    font-family: "Josefin Sans", sans-serif;
+    background: url("/fondo.png") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    height: 100%;
+}
+
+.swal2-timer-progress-bar {
+    background: #2a3658
+}

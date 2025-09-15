@@ -1,0 +1,75 @@
+<div class="contenedor">
+        
+    <form class="formulario" #formulario="ngForm" (ngSubmit)="crearCuenta()" novalidate>
+            <h2>Crea tu cuenta</h2>
+        
+        <div class="requisito">
+            <label class="form-label">Nombre</label>
+            <input [(ngModel)]="nombre" name="nombre" type="text" class="form-control" required minlength="3" maxlength="20" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$" #nombreCtrl="ngModel" >
+            <div class="error" *ngIf="nombreCtrl.invalid && (nombreCtrl.dirty || nombreCtrl.touched)">
+                <small>El nombre debe de tener de 3 a 15 caracteres y no debe contener numeros ni caracteres especiales.</small>
+            </div>
+        </div>
+
+        <div class="requisito">
+            <label class="form-label">Apellido</label>
+            <input [(ngModel)]="apellido" name="apellido" type="text" class="form-control" required minlength="3" maxlength="20" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ]+$" #apellidoCtrl="ngModel">
+            <div class="error" *ngIf="apellidoCtrl.invalid && (apellidoCtrl.dirty || apellidoCtrl.touched)">
+                <small>El apellido debe de tener de 3 a 15 caracteres y no debe contener numeros ni caracteres especiales.</small>
+            </div>
+        </div>
+
+        <div class="requisito">
+            <label class="form-label">Edad</label>
+            <input [(ngModel)]="edad" name="edad" type="number" class="form-control" required min="18" max="99" #edadCtrl="ngModel">
+            <div class="error" *ngIf="edadCtrl.invalid && (edadCtrl.dirty || edadCtrl.touched)">
+                <small>Para poder crear una cuenta debe tener entre 18 y 99 años</small>
+
+            </div>
+        </div>
+
+        <div class="requisito">
+            <label class="form-label">Correo electrónico</label>
+            <input [(ngModel)]="email" name="email" type="email" class="form-control" required pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.(com|org|net)$" #emailCtrl="ngModel">
+            <div class="error" *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)">
+                <small>Formato de correo inválido (ejemplo@ejemplo.com)</small>
+            </div>
+        </div>
+
+        <div class="requisito">
+            <label class="form-label">Contraseña</label>
+            
+            <div style="position: relative;">
+                <input [(ngModel)]="password" name="password" [type]="mostrarPassword ? 'text' : 'password'" class="form-control" required #passCtrl="ngModel" >
+                <button class="btn-mostrar" type="button" (click)="mostrarPassword = !mostrarPassword" > {{ mostrarPassword ? 'Ocultar' : 'Mostrar' }} </button>
+            </div>
+
+            <div class="error" *ngIf="passCtrl.dirty || passCtrl.touched">
+                <ul>
+                    <li *ngFor="let error of validarPassword()">{{ error }}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="requisito">
+            <label class="form-label">Repite la Contraseña</label>
+
+            <input [(ngModel)]="repassword" name="repassword" [type]="mostrarPassword ? 'text' : 'password'" class="form-control" required #repassCtrl="ngModel">
+
+            <div class="error" *ngIf="password !== repassword && repassCtrl.touched">
+                <small>Las contraseñas no coinciden</small>
+            </div>
+        </div>
+
+        <hr>
+        @if (formulario.invalid || password !== repassword) {
+            <button type="submit" class="btn-create" style="background-color: #a3bffa; color: #e0e0e0; cursor: not-allowed; box-shadow: none;" [disabled]="formulario.invalid && password !== repassword">
+                Crear Cuenta
+            </button>
+        } @else {
+            <button (ngSubmit)="crearCuenta()" type="submit" class="btn-create" [disabled]="formulario.invalid || password !== repassword">
+                Crear Cuenta
+            </button>
+        }
+    </form>
+</div>

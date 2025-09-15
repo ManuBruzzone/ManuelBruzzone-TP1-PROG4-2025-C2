@@ -1,0 +1,40 @@
+.contenedor {
+    display: flex;
+    justify-content: center;
+    margin-top: 4%;
+}
+
+.tarjeta-quiensoy {
+    width: 750px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    background-color: #f9f9f9;
+    text-align: center;
+    cursor: default;
+}
+
+.perfil-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.tarjeta-quiensoy h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.tarjeta-quiensoy p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.juego-propio {
+    text-align: center;
+    margin-top: 15px;
+    background-color: #e9f5ff;
+    padding: 10px;
+    border-radius: 12px;
+}

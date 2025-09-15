@@ -1,0 +1,53 @@
+<div class="page">
+    <header class="header">
+        <div class="contenedor-logo">
+            <img src="image.png" alt="Juga con Manu" class="logo">
+            <h1 class="logo-nombre">JUGA CON MANU</h1>
+        </div>
+        <div class="paginas">
+            <button class="paginas-button" routerLink="bienvenida">Inicio</button>
+            <button class="paginas-button" routerLink="quiensoy">Quien soy</button>
+            @if (authService.usuarioActual()) {
+                <div class="dropdown">
+                <img
+                    src="interfaz-de-usuario.png"
+                    alt="Usuario"
+                    class="logo-iniciar-sesion dropdown-toggle"
+                    width="41px"
+                    id="dropdownMenuButton"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                />
+
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                    <li>
+                    <span class="dropdown-item-text">
+                        {{ authService.usuarioActual()?.email }}
+                    </span>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" (click)="cerrarSesion()">Cerrar sesión</a></li>
+                </ul>
+                </div>
+            } @else {
+                <button class="paginas-button" routerLink="login" (click)="iniciarSesion()">Inicia sesion</button>
+            }
+        </div>
+    </header>
+    <main class="contenido">
+        <router-outlet />
+    </main>
+
+    @if (authService.usuarioActual()) {
+        <div class="chat-container">
+            <button class="chat-toggle" (click)="modificarChat()">
+            💬
+            </button>
+    
+            <div class="chat-panel" *ngIf="mostrarChat">
+                <app-chat></app-chat>
+            </div>
+        </div>
+    }
+    
+</div>

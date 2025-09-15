@@ -1,0 +1,15 @@
+.contenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 110%;
+}
+
+.contenedor-juegos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto); 
+    gap: 30px;
+    justify-content: center;
+    align-items: center; 
+}

@@ -1,0 +1,119 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.header {
+    display: grid;
+    height: 100px;
+    width: 100%;
+    grid-template-columns: 1fr  auto;
+    background-color: #12093E;
+}
+
+.contenedor-logo {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    height: 40%;
+    cursor: default;
+}
+
+.logo {
+    width: 125px;
+    border: none;
+}
+
+.logo-nombre {
+    font-family: "Jacques Francois Shadow", serif;
+    font-weight: 400;
+    font-size: 32px;
+    color: #fff;
+}
+
+.contenido{
+    background-color: transparent;
+}
+
+.paginas {
+    display: flex;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding-right: 10px;
+}
+
+.paginas-button {
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 18px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-bottom: 10px;
+    color: #e2e2e2;
+}
+
+.paginas-button:hover, .logo-iniciar-sesion:hover {
+    transform: scale(1.1);
+    color: #cfd8ed;
+}
+
+.contenedor-iniciar-sesion {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.logo-iniciar-sesion{
+    cursor: pointer;
+    margin-bottom: 10px ;
+}
+
+.dropdown-item{
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #2a3658;
+    color: #fff;
+}
+
+.chat-container {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    z-index: 999;
+}
+
+.chat-toggle {
+    background-color: #12093E;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    transition: background 0.3s;
+}
+
+.chat-toggle:hover {
+    background-color: #0056b3;
+}
+
+.chat-panel {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    width: 320px;
+    height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}

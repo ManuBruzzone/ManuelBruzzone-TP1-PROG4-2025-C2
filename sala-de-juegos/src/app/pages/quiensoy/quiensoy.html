@@ -1,0 +1,22 @@
+<div class="contenedor">
+    <div class="tarjeta-quiensoy">
+        <img [src]="this.apiService.usuarioActual().avatar_url" alt="Foto de perfil" class="perfil-img">
+        <h2>{{ this.apiService.usuarioActual().name }}</h2>
+        <p> {{ this.apiService.usuarioActual().bio }}</p>
+
+        <hr>
+
+        <div class="juego-propio">
+        <h3>Mi juego: Penales</h3>
+        <p>
+            He desarrollado un juego de <strong>penales</strong> basado en el azar. 
+            El jugador tiene 6 opciones de tiro y debe elegir una dirección para patear. 
+            El arquero también elige una dirección al azar, y si el jugador elige la misma que el arquero, pierde el gol. 
+            ¡Si acierta en una dirección distinta, el gol es suyo! 
+        </p>
+        <p>
+            Este juego combina estrategia y suerte, y permite al jugador intentar superar al arquero en cada tiro.
+        </p>
+        </div>
+    </div>
+</div>

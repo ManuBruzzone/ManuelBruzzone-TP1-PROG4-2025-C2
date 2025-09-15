@@ -1,0 +1,30 @@
+<div class="chat-container">
+    <div class="chat-header">
+        <h2>Chat</h2>
+        <h3>{{ usuario }}</h3>
+    </div>
+
+    <div #mensajesContainer class="chat-messages">
+        @for (msj of mensajes(); track $index) {
+        <div
+            class="message"
+            [ngClass]="{ 'own': msj.usuario === usuario }"
+        >
+            <div class="message-user">{{ msj.usuario }}</div>
+            <div class="message-text">{{ msj.mensaje }}</div>
+            <div class="message-time">
+            {{ msj.created_at | date: 'short' }}
+            </div>
+        </div>
+        }
+    </div>
+
+    <div class="chat-input">
+        <input
+        [(ngModel)]="msj"
+        placeholder="Escribe un mensaje..."
+        (keyup.enter)="enviarMensaje()"
+        />
+        <button (click)="enviarMensaje()">➤</button>
+    </div>
+</div>
