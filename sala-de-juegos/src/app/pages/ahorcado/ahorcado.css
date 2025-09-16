@@ -25,6 +25,16 @@
     width: 100%;
 }
 
+.ahorcado-vida-palabra {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+    gap: 100px;
+}
+
 .ahorcado-palabra {
     display: flex;
     color: #fff;
@@ -45,6 +55,23 @@
     gap: 2px;
 }
 
+.perdedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ganador{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.perdiste {
+    font-size: 60px;
+}
 
 .btn-letra {
     font-family: "Josefin Sans", sans-serif;
@@ -58,4 +85,27 @@
 
 .btn-letra:hover {
     background: #9c9399;
+}
+
+.btn-reiniciar {
+    font-family: "Josefin Sans", sans-serif;
+    font-size: 30px;
+    border-radius: 10px;
+    border-color: #12093E;
+    height: 100px;
+    width: 300px;
+    background: #e1dedc;
+}
+
+.ahorcado-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ahorcado-img img {
+    max-width: 390px;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
 }

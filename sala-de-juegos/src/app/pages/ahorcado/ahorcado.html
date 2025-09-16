@@ -1,52 +1,76 @@
 <div class="game-container">
     <div class="game">
         <div class="ahorcado-section">
-            <div class="ahorcado-img">
-                @if (vidas === 6) {
-                    <img src="" alt="">
-                }
+        <div class="ahorcado-img">
+            <img [src]="imagenes[vidas]" alt="Ahorcado">
+        </div>
+
+        <div class="ahorcado-vida-palabra">
+            @if (mensaje === 'ganaste') {
+            <div class="ganador">
+                <span>Ganaste con la palabra:</span>
+                <span class="palabra-final">{{ palabraElejida }}</span>
+            </div>
+            } @else if (vidas > 0) {
+            <div class="ahorcado-vida">
+                <span>Le quedan {{ vidas }} vidas</span>
             </div>
             <div class="ahorcado-palabra">
-                @for(letra of palabraUsuario; track $index) {
-                    <p>{{letra}}</p>
+                @for (letra of palabraUsuario; track $index) {
+                <p>{{ letra }}</p>
                 }
             </div>
+            } @else {
+            <div class="perdedor">
+                <span class="perdiste">Perdiste!</span>
+                <span>La palabra era <b>{{ palabraElejida }}</b></span>
+            </div>
+            }
         </div>
+        </div>
+
         <div class="ahorcado-teclado">
+        @if (vidas > 0 && mensaje !== 'ganaste') {
             <div class="row">
-                <button class="btn-letra">Q</button>
-                <button class="btn-letra">W</button>
-                <button class="btn-letra">E</button>
-                <button class="btn-letra">R</button>
-                <button class="btn-letra">T</button>
-                <button class="btn-letra">Y</button>
-                <button class="btn-letra">U</button>
-                <button class="btn-letra">I</button>
-                <button class="btn-letra">O</button>
-                <button class="btn-letra">P</button>
-            </div>
-            <div class="row">
-                <button class="btn-letra">A</button>
-                <button class="btn-letra">S</button>
-                <button class="btn-letra">D</button>
-                <button class="btn-letra">F</button>
-                <button class="btn-letra">G</button>
-                <button class="btn-letra">H</button>
-                <button class="btn-letra">J</button>
-                <button class="btn-letra">K</button>
-                <button class="btn-letra">L</button>
-                <button class="btn-letra">Ñ</button>              
-            </div>
-            <div class="row">
-                <button class="btn-letra">Z</button>
-                <button class="btn-letra">X</button>
-                <button class="btn-letra">C</button>
-                <button class="btn-letra">V</button>
-                <button class="btn-letra">B</button>
-                <button class="btn-letra">N</button>
-                <button class="btn-letra">M</button>
+            <button class="btn-letra" (click)="aprietoLetra('Q')">Q</button>
+            <button class="btn-letra" (click)="aprietoLetra('W')">W</button>
+            <button class="btn-letra" (click)="aprietoLetra('E')">E</button>
+            <button class="btn-letra" (click)="aprietoLetra('R')">R</button>
+            <button class="btn-letra" (click)="aprietoLetra('T')">T</button>
+            <button class="btn-letra" (click)="aprietoLetra('Y')">Y</button>
+            <button class="btn-letra" (click)="aprietoLetra('U')">U</button>
+            <button class="btn-letra" (click)="aprietoLetra('I')">I</button>
+            <button class="btn-letra" (click)="aprietoLetra('O')">O</button>
+            <button class="btn-letra" (click)="aprietoLetra('P')">P</button>
             </div>
 
+            <div class="row">
+            <button class="btn-letra" (click)="aprietoLetra('A')">A</button>
+            <button class="btn-letra" (click)="aprietoLetra('S')">S</button>
+            <button class="btn-letra" (click)="aprietoLetra('D')">D</button>
+            <button class="btn-letra" (click)="aprietoLetra('F')">F</button>
+            <button class="btn-letra" (click)="aprietoLetra('G')">G</button>
+            <button class="btn-letra" (click)="aprietoLetra('H')">H</button>
+            <button class="btn-letra" (click)="aprietoLetra('J')">J</button>
+            <button class="btn-letra" (click)="aprietoLetra('K')">K</button>
+            <button class="btn-letra" (click)="aprietoLetra('L')">L</button>
+            <button class="btn-letra" (click)="aprietoLetra('Ñ')">Ñ</button>
+            </div>
+
+            <div class="row">
+            <button class="btn-letra" (click)="aprietoLetra('Z')">Z</button>
+            <button class="btn-letra" (click)="aprietoLetra('X')">X</button>
+            <button class="btn-letra" (click)="aprietoLetra('C')">C</button>
+            <button class="btn-letra" (click)="aprietoLetra('V')">V</button>
+            <button class="btn-letra" (click)="aprietoLetra('B')">B</button>
+            <button class="btn-letra" (click)="aprietoLetra('N')">N</button>
+            <button class="btn-letra" (click)="aprietoLetra('M')">M</button>
+            </div>
+        } @else {
+            <div class="reiniciar">
+            <button class="btn-reiniciar" (click)="reiniciarJuego()">Volver a jugar</button>
+            </div>
+        }
         </div>
     </div>
 </div>

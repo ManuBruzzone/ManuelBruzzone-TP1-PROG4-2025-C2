@@ -16,24 +16,69 @@ export class Ahorcado {
     "FIESTA", "PLAYA", "MONTAÑA", "AUTO", "CASA", "PERRO", "GATO", "LIBRO", "ESCUELA",
     "TRABAJO", "CIUDAD"
   ];
+
   palabraElejida: string = '';
   palabraUsuario: string[] = [];
   vidas: number = 6;
+  letrasProbadas: string[] = [];
+  mensaje: string = '';
+  imagenes: string[] = [
+    '/ahorcado0.png',
+    '/ahorcado1.png',
+    '/ahorcado2.png',
+    '/ahorcado3.png',
+    '/ahorcado4.png',
+    '/ahorcado5.png',
+    '/ahorcado6.png'
+  ];
 
   ngOnInit(){
     this.palabraElejida = this.getPalabra();
     this.palabraVaciaInicial();
   }
 
-  getPalabra(): string{
-    let word = this.palabras[Math.floor(Math.random() * this.palabras.length)];
-    
-    return word;
+  getPalabra(): string {
+    return this.palabras[Math.floor(Math.random() * this.palabras.length)];
   }
 
   palabraVaciaInicial(){
-    for(let i = 0; i < this.palabraElejida.length; i++) {
-      this.palabraUsuario[i] = '_';
+    this.palabraUsuario = Array(this.palabraElejida.length).fill('_');
+  }
+
+  aprietoLetra(letra: string) {
+    
+    if (this.letrasProbadas.includes(letra)) return;
+    this.letrasProbadas.push(letra);
+
+    let acierto = false;
+    for (let i = 0; i < this.palabraElejida.length; i++) {
+      if (this.palabraElejida[i] === letra) {
+        this.palabraUsuario[i] = letra;
+        acierto = true;
+      }
     }
+
+    if (!acierto) {
+      this.vidas--;
+    }
+
+    this.checkEstado();
+  }
+
+  checkEstado(){
+    if (this.palabraUsuario.join('') === this.palabraElejida) {
+      this.mensaje = "ganaste";
+
+    } else if (this.vidas <= 0) {
+      this.mensaje = "Perdiste. La palabra era: " + this.palabraElejida;
+    }
+  }
+
+  reiniciarJuego(){
+    this.vidas = 6;
+    this.letrasProbadas = [];
+    this.mensaje = '';
+    this.palabraElejida = this.getPalabra();
+    this.palabraVaciaInicial();
   }
 }
