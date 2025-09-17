@@ -31,6 +31,8 @@ export class Ahorcado {
     '/ahorcado5.png',
     '/ahorcado6.png'
   ];
+  letraAcertada: string[] = [];
+  letraErrada: string[] = [];
 
   ngOnInit(){
     this.palabraElejida = this.getPalabra();
@@ -45,21 +47,25 @@ export class Ahorcado {
     this.palabraUsuario = Array(this.palabraElejida.length).fill('_');
   }
 
-  aprietoLetra(letra: string) {
-    
+  aprietoLetra(letra: string, event: Event) {
     if (this.letrasProbadas.includes(letra)) return;
     this.letrasProbadas.push(letra);
+
+    const buttonElement = event.target as HTMLButtonElement;
+    buttonElement.setAttribute('disabled', '');
 
     let acierto = false;
     for (let i = 0; i < this.palabraElejida.length; i++) {
       if (this.palabraElejida[i] === letra) {
         this.palabraUsuario[i] = letra;
         acierto = true;
+        this.letraAcertada.push(letra);
       }
     }
 
     if (!acierto) {
       this.vidas--;
+      this.letraErrada.push(letra);
     }
 
     this.checkEstado();
@@ -80,5 +86,7 @@ export class Ahorcado {
     this.mensaje = '';
     this.palabraElejida = this.getPalabra();
     this.palabraVaciaInicial();
+    this.letraAcertada= [];
+    this.letraErrada= [];
   }
 }
