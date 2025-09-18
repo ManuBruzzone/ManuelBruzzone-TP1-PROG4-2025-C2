@@ -33,6 +33,8 @@ export class Ahorcado {
   ];
   letraAcertada: string[] = [];
   letraErrada: string[] = [];
+  tiempo: number = 0;
+  errores: number = 0;
 
   ngOnInit(){
     this.palabraElejida = this.getPalabra();
@@ -68,6 +70,7 @@ export class Ahorcado {
       this.letraErrada.push(letra);
     }
 
+    
     this.checkEstado();
   }
 

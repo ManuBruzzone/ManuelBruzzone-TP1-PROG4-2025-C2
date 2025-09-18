@@ -1,32 +1,49 @@
 <div class="game-container">
     <div class="game">
         <div class="ahorcado-section">
-        <div class="ahorcado-img">
-            <img [src]="imagenes[vidas]" alt="Ahorcado">
-        </div>
+            <div class="ahorcado-img">
+                <img [src]="imagenes[vidas]" alt="Ahorcado">
+            </div>
 
-        <div class="ahorcado-vida-palabra">
-            @if (mensaje === 'ganaste') {
-            <div class="ganador">
-                <span>Ganaste con la palabra:</span>
-                <span class="palabra-final">{{ palabraElejida }}</span>
-            </div>
-            } @else if (vidas > 0) {
-            <div class="ahorcado-vida">
-                <span>Le quedan {{ vidas }} vidas</span>
-            </div>
-            <div class="ahorcado-palabra">
-                @for (letra of palabraUsuario; track $index) {
-                <p>{{ letra }}</p>
+            <div class="ahorcado-vida-palabra">
+                @if (mensaje === 'ganaste') {
+                <div class="ganador">
+                    <span>Ganaste con la palabra:</span>
+                    <span class="palabra-final">{{ palabraElejida }}</span>
+                </div>
+                } @else if (vidas > 0) {
+                <div class="ahorcado-vida">
+                    <span>El Ahorcado</span>
+                </div>
+                <div class="ahorcado-palabra">
+                    @for (letra of palabraUsuario; track $index) {
+                    <p>{{ letra }}</p>
+                    }
+                </div>
+                } @else {
+                <div class="perdedor">
+                    <span class="perdiste">Perdiste!</span>
+                    <span>La palabra era <b>{{ palabraElejida }}</b></span>
+                </div>
                 }
             </div>
-            } @else {
-            <div class="perdedor">
-                <span class="perdiste">Perdiste!</span>
-                <span>La palabra era <b>{{ palabraElejida }}</b></span>
+
+            <div class="estadisticas">
+                <div class="estadistica-item">
+                    <span class="label">Intentos restantes:</span>
+                    <span class="valor">{{ vidas }}</span>
+                </div>
+
+                <div class="estadistica-item">
+                    <span class="label">Tiempo:</span>
+                    <span class="valor">{{ tiempo }}s</span>
+                </div>
+
+                <div class="estadistica-item">
+                    <span class="label">Errores:</span>
+                    <span class="valor">{{ errores }}</span>
+                </div>
             </div>
-            }
-        </div>
         </div>
 
         <div class="ahorcado-teclado">
