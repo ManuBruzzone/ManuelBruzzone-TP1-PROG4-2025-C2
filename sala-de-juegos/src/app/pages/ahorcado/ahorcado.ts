@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-ahorcado',
@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './ahorcado.html',
   styleUrl: './ahorcado.css'
 })
-export class Ahorcado {
+export class Ahorcado implements OnDestroy {
   palabras: string[] = [
     "ASADO", "MATE", "EMPANADA", "MILANESA", "CHORIPAN", "FERNET", "ALFAJOR", "TANGO",
     "FUTBOL", "RIVER", "BOCA", "GIMNASIA", "INDEPENDIENTE", "SANLORENZO", "TUCUMAN",
@@ -35,10 +35,27 @@ export class Ahorcado {
   letraErrada: string[] = [];
   tiempo: number = 0;
   errores: number = 0;
+  private intervalo: any;
 
   ngOnInit(){
+    this.iniciarJuego();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.intervalo);
+  }
+
+  iniciarJuego() {
     this.palabraElejida = this.getPalabra();
     this.palabraVaciaInicial();
+    this.tiempo = 0;
+
+    clearInterval(this.intervalo);
+    this.intervalo = setInterval(() => {
+      if (!this.mensaje) {
+        this.tiempo++;
+      }
+    }, 1000);
   }
 
   getPalabra(): string {
@@ -68,18 +85,20 @@ export class Ahorcado {
     if (!acierto) {
       this.vidas--;
       this.letraErrada.push(letra);
+      this.errores =+ 1;
     }
 
-    
     this.checkEstado();
   }
 
   checkEstado(){
     if (this.palabraUsuario.join('') === this.palabraElejida) {
       this.mensaje = "ganaste";
+      clearInterval(this.intervalo);
 
     } else if (this.vidas <= 0) {
-      this.mensaje = "Perdiste. La palabra era: " + this.palabraElejida;
+      this.mensaje = "Perdiste. La palabra era: "+ this.palabraElejida;
+      clearInterval(this.intervalo);
     }
   }
 
@@ -87,9 +106,9 @@ export class Ahorcado {
     this.vidas = 6;
     this.letrasProbadas = [];
     this.mensaje = '';
-    this.palabraElejida = this.getPalabra();
-    this.palabraVaciaInicial();
     this.letraAcertada= [];
     this.letraErrada= [];
+    this.iniciarJuego();
+    this.errores = 0;
   }
 }

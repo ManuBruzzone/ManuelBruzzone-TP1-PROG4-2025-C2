@@ -1,1 +1,31 @@
-<p>mayormenor works!</p>
+<div class="game-container">
+    <div class="game">
+
+        <h1 class="titulo">
+            Adivia si la siguiente carta es
+        </h1>
+        <h1 class="titulo">
+            Mayor o Menor
+        </h1>
+
+        <div class="carta-actual">
+            <img [src]="cartaActual!.imagen" alt="Carta actual">
+        </div>
+
+        @if (!juegoTerminado) {
+        <div class="acciones">
+            <button (click)="elegir('menor')">Menor</button>
+            <button (click)="elegir('mayor')">Mayor</button>
+        </div>
+        }
+
+        <div class="info">
+            <p>Aciertos: {{ aciertos }}</p>
+            <p>{{ mensaje }}</p>
+
+            @if (juegoTerminado) {
+                <button class="btn-reiniciar" (click)="reiniciarJuego()">Volver a jugar</button>
+            }
+        </div>
+    </div>
+</div>
