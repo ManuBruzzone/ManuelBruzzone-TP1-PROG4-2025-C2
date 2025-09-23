@@ -1,0 +1,179 @@
+.game-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    width: 99vw;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 70%;
+    width: 60%;
+    background: rgba(18, 9, 62, 0.9);
+    border: 2px solid #D9D9D9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.titulo {
+    text-align: center;
+    font-weight: bold;
+    font-size: 26px;
+    color: #D9D9D9;
+    margin-bottom: 20px;
+}
+
+
+.layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.stats-left {
+    width: 180px;
+    background-color: #2a1f5c;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.stats-left h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #00bfff;
+}
+
+.stats-left p {
+    font-size: 16px;
+    color: #D9D9D9;
+    margin: 6px 0;
+}
+
+.stats-right {
+    width: 180px;
+    background-color: #2a1f5c;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.stats-right h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #ffcc00;
+}
+
+.stats-right p {
+    font-size: 16px;
+    color: #D9D9D9;
+    margin: 6px 0;
+}
+
+.cancha-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cancha {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.arco {
+    position: relative;
+    width: 350px;
+    height: 220px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.img-arco {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.arquero {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;
+    height: auto;
+    transition: all 0.5s ease;
+}
+
+.arquero.izquierda { left: 20%; }
+.arquero.centro { left: 50%; }
+.arquero.derecha { left: 80%; }
+
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.acciones button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2d89ef;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+.acciones button:hover {
+    background-color: #1b5cb8;
+    transform: scale(1.05);
+}
+
+.info {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.info p {
+    color: #D9D9D9;
+}
+
+.mensaje {
+    color: #00bfff;
+}
+
+.mensajePerdiste {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+.btn-reiniciar {
+    font-size: 18px;
+    border-radius: 10px;
+    padding: 10px 25px;
+    background-color: #e1dedc;
+    border: 2px solid #12093E;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 10px;
+}
+
+.btn-reiniciar:hover {
+    background-color: #d1cfcf;
+}

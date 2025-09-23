@@ -1,1 +1,46 @@
-<p>penales works!</p>
+<div class="game-container">
+    <div class="game">
+        <h1 class="titulo">Juego de Penales</h1>
+
+        <div class="layout">
+            <div class="stats-left">
+                <h3>Estadísticas</h3>
+                <p>Intentos restantes: {{ intentosRestantes }}</p>
+                <p>Atajadas: {{ atajadas }}</p>
+            </div>
+
+        <div class="cancha-section">
+            <div class="cancha">
+                <div class="arco">
+                    <img src="arco.png" alt="Arco" class="img-arco">
+                    <img src="arquero.png" alt="Arquero" class="arquero" [ngClass]="posicionArquero">
+                </div>
+            </div>
+
+            @if (!juegoTerminado) {
+                <div class="acciones">
+                    <button (click)="patear('izquierda')">Izquierda</button>
+                    <button (click)="patear('centro')">Centro</button>
+                    <button (click)="patear('derecha')">Derecha</button>
+                </div>
+            }
+
+            <div class="info">
+                @if (juegoTerminado) {
+                    <button class="btn-reiniciar" (click)="reiniciarJuego()">Volver a jugar</button>
+                    <p class="mensajePerdiste">{{ mensajePerdiste }}</p>
+                } @else {
+                    <p class="mensaje">{{ mensaje }}</p>
+                }
+            </div>
+        </div>
+
+            <div class="stats-right">
+                <h3>Goles por sector</h3>
+                <p>Izquierda: {{ golesIzquierda }}</p>
+                <p>Centro: {{ golesCentro }}</p>
+                <p>Derecha: {{ golesDerecha }}</p>
+            </div>
+        </div>
+    </div>
+</div>
