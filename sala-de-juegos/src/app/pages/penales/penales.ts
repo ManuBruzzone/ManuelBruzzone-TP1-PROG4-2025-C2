@@ -12,15 +12,12 @@ export class Penales {
   golesIzquierda: number = 0;
   golesCentro: number = 0;
   golesDerecha: number = 0;
-
   intentos: number = 0;
   intentosRestantes: number = 3;
   atajadas: number = 0;
-
   mensaje: string = '';
   mensajePerdiste: string = '';
   juegoTerminado: boolean = false;
-
   direcciones: string[] = ['izquierda', 'centro', 'derecha'];
   posicionArquero: string = 'centro';
 
@@ -56,11 +53,9 @@ export class Penales {
     this.golesIzquierda = 0;
     this.golesCentro = 0;
     this.golesDerecha = 0;
-
     this.intentos = 0;
     this.intentosRestantes = 3;
     this.atajadas = 0;
-
     this.mensaje = '';
     this.mensajePerdiste = '';
     this.juegoTerminado = false;
