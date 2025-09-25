@@ -39,4 +39,17 @@ import { Auth } from './auth';
                 console.error("Error al guardar penal:", error.message);
         }
     }
+
+    async obtenerResultados() {
+        const { data, error } = await this.auth.supabase
+        .from('penales_game')
+        .select('*')
+        .order('goles', { ascending: false });
+
+        if (error) {
+        console.error("Error al obtener resultados de penales:", error.message);
+        return [];
+        }
+        return data;
+    }
 }

@@ -38,4 +38,17 @@ export class AhorcadoService {
         console.error("Error al guardar ahorcado:", error.message);
         }
     }
+
+    async obtenerResultados() {
+        const { data, error } = await this.auth.supabase
+            .from('ahorcado_game')
+            .select('*')
+            .order('aciertos', { ascending: false });
+
+        if (error) {
+            console.error("Error al obtener resultados de ahorcado:", error.message);
+        return [];
+        }
+        return data;
+    }
 }

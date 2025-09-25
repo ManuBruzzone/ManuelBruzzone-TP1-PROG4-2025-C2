@@ -1,1 +1,81 @@
-<p>resultados works!</p>
+<div class="game-container">
+    <div class="game">
+        <h2 class="game-title">Resultados</h2>
+
+        <select class="game-select" [(ngModel)]="juegoSeleccionado">
+            <option value="">-- Elegí un juego --</option>
+            <option value="penales">⚽ Penales</option>
+            <option value="mayormenor">🃏 Mayor o Menor</option>
+            <option value="ahorcado">🔤 Ahorcado</option>
+            <option value="preguntados">🔤 Preguntados</option>
+        </select>
+
+        @if (juegoSeleccionado === 'penales') {
+        <h3 class="game-subtitle">Resultados de Penales</h3>
+        <table class="game-table">
+            <thead>
+                <tr>
+                    <th class="table-header">Jugador</th>
+                    <th class="table-header">Goles</th>
+                    <th class="table-header">Intentos</th>
+                    <th class="table-header">Atajadas</th>
+                </tr>
+            </thead>
+                <tbody>
+                    @for (r of penalesResultados; track r) {
+                        <tr class="table-row">
+                            <td class="table-cell">{{ r.user_email }}</td>
+                            <td class="table-cell">{{ r.goles }}</td>
+                            <td class="table-cell">{{ r.intentos }}</td>
+                            <td class="table-cell">{{ r.atajadas }}</td>
+                        </tr>
+                    }
+                </tbody>
+        </table>
+        }
+
+        @if (juegoSeleccionado === 'mayormenor') {
+        <h3 class="game-subtitle">Resultados de Mayor o Menor</h3>
+        <table class="game-table">
+            <thead>
+                <tr>
+                    <th class="table-header">Jugador</th>
+                    <th class="table-header">Aciertos</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (r of mayormenorResultados; track r) {
+                    <tr class="table-row">
+                        <td class="table-cell">{{ r.user_email }}</td>
+                        <td class="table-cell">{{ r.aciertos }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        }
+
+        @if (juegoSeleccionado === 'ahorcado') {
+        <h3 class="game-subtitle">Resultados de Ahorcado</h3>
+        <table class="game-table">
+            <thead>
+                <tr>
+                    <th class="table-header">Jugador</th>
+                    <th class="table-header">Errores</th>
+                    <th class="table-header">Ganó</th>
+                    <th class="table-header">Tiempo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (r of ahorcadoResultados; track r) {
+                    <tr class="table-row">
+                    <td class="table-cell">{{ r.user_email }}</td>
+                    <td class="table-cell">{{ r.errores }}</td>
+                    <td class="table-cell">{{ r.gano ? 'Sí' : 'No' }}</td>
+                    <td class="table-cell">{{ r.tiempo }}s</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        }
+    </div>
+</div>

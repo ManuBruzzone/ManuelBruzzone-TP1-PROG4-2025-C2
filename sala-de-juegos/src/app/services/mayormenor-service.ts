@@ -31,4 +31,17 @@ export class MayorMenorService {
         console.error("Error al guardar mayor-menor:", error.message);
         }
     }
+
+    async obtenerResultados() {
+        const { data, error } = await this.auth.supabase
+        .from('mayormenor_game')
+        .select('*')
+        .order('aciertos', { ascending: false });
+
+        if (error) {
+        console.error("Error al obtener resultados de mayor/menor:", error.message);
+        return [];
+        }
+        return data;
+    }
 }
