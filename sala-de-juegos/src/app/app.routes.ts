@@ -56,6 +56,11 @@ export const routes: Routes = [
         canActivate: [estaLogueadoGuard],
     },
     {
+        path: 'resultados',
+        loadComponent: () =>
+            import('./pages/resultados/resultados').then((archivo) => archivo.Resultados),    
+    },
+    {
         path: '**',
         loadComponent: () =>
             import('./pages/error/error').then((archivo) => archivo.Error),
