@@ -1,0 +1,192 @@
+/* base (manteniendo tu estilo) */
+.game-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  width: 99vw;
+  font-family: Arial, sans-serif;
+  background-color: #12093E;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+  width: 60%;
+  background-color: #1a0d4f;
+  border: 2px solid #D9D9D9;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.titulo {
+  text-align: center;
+  font-weight: bold;
+  font-size: 26px;
+  color: #D9D9D9;
+  margin-bottom: 12px;
+}
+
+/* Layout */
+.layout {
+  display: flex;
+  width: 100%;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+/* Panel izquierdo */
+.stats-left {
+  width: 180px;
+  background-color: #2a1f5c;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+}
+
+.stats-left h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #00bfff;
+}
+
+.stats-left p {
+  font-size: 14px;
+  color: #D9D9D9;
+  margin: 6px 0;
+}
+
+.timer p {
+  font-weight: bold;
+  color: #ffd166;
+}
+
+/* Centro */
+.contenido-centro {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.categoria-select {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.categoria-select select {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.start-btn {
+  padding: 8px 14px;
+  background: #2d89ef;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.25);
+}
+
+.start-btn:hover { background: #1b5cb8; transform: scale(1.02); }
+
+/* Card de pregunta */
+.pregunta-card {
+  width: 100%;
+  background: #231547;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+.pregunta-text p {
+  color: #D9D9D9;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.pregunta-img {
+  max-width: 220px;
+  max-height: 140px;
+  object-fit: cover;
+  margin: 8px auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* Opciones */
+.opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.opciones button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #2d89ef;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.18s;
+  font-size: 15px;
+  text-align: left;
+}
+
+.opciones button:hover {
+  background: #1b5cb8;
+  transform: scale(1.01);
+}
+
+.btn-correct {
+  background: #2ecc71 !important;
+  color: #072d11;
+  font-weight: bold;
+}
+
+.btn-wrong {
+  background: #ff6b6b !important;
+  color: #3a0000;
+  font-weight: bold;
+}
+
+/* Panel derecho */
+.stats-right {
+  width: 180px;
+  background-color: #2a1f5c;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.stats-right h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #ffcc00;
+}
+
+.cat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #D9D9D9;
+}
+
+/* pantalla final */
+.final-card {
+  width: 100%;
+  background: #16203a;
+  padding: 18px;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+}

@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
+import { PenalesService } from '../../services/penales-service';
 
 @Component({
   selector: 'app-penales',
@@ -20,6 +21,8 @@ export class Penales {
   juegoTerminado: boolean = false;
   direcciones: string[] = ['izquierda', 'centro', 'derecha'];
   posicionArquero: string = 'centro';
+
+  constructor(private penalesService: PenalesService) {}
 
   patear(direccion: string) {
     if (this.juegoTerminado) return;
@@ -45,7 +48,19 @@ export class Penales {
     if (this.intentosRestantes === 0) {
       this.mensajePerdiste = `Juego terminado. Hiciste ${this.goles} goles.`;
       this.juegoTerminado = true;
+      this.guardarResultado();
     }
+  }
+
+  async guardarResultado() {
+    await this.penalesService.guardarResultado({
+      goles: this.goles,
+      golesIzquierda: this.golesIzquierda,
+      golesCentro: this.golesCentro,
+      golesDerecha: this.golesDerecha,
+      intentos: this.intentos,
+      atajadas: this.atajadas,
+    });
   }
 
   reiniciarJuego() {

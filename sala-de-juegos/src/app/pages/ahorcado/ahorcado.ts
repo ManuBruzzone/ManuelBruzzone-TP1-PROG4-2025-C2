@@ -1,4 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
+import { AhorcadoService } from '../../services/ahorcado-service';
 
 @Component({
   selector: 'app-ahorcado',
@@ -6,7 +7,7 @@ import { Component, OnDestroy } from '@angular/core';
   templateUrl: './ahorcado.html',
   styleUrl: './ahorcado.css'
 })
-export class Ahorcado implements OnDestroy {
+export class Ahorcado {
   palabras: string[] = [
     "ASADO", "MATE", "EMPANADA", "MILANESA", "CHORIPAN", "FERNET", "ALFAJOR", "TANGO",
     "FUTBOL", "RIVER", "BOCA", "GIMNASIA", "INDEPENDIENTE", "SANLORENZO", "TUCUMAN",
@@ -36,6 +37,8 @@ export class Ahorcado implements OnDestroy {
   tiempo: number = 0;
   errores: number = 0;
   private intervalo: any;
+
+  constructor(private ahorcadoService: AhorcadoService) {}
 
   ngOnInit(){
     this.iniciarJuego();
@@ -96,10 +99,24 @@ export class Ahorcado implements OnDestroy {
       this.mensaje = "ganaste";
       clearInterval(this.intervalo);
 
+      this.guardarResultado(true);
+
     } else if (this.vidas <= 0) {
       this.mensaje = "Perdiste. La palabra era: "+ this.palabraElejida;
       clearInterval(this.intervalo);
+
+      this.guardarResultado(false);
     }
+  }
+
+  private guardarResultado(gano: boolean) {
+    this.ahorcadoService.guardarResultado({
+      palabra: this.palabraElejida,
+      aciertos: this.letraAcertada.length,
+      errores: this.letraErrada.length,
+      tiempo: this.tiempo,
+      gano: gano
+    });
   }
 
   reiniciarJuego(){

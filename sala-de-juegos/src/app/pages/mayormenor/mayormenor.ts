@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Carta } from '../../classes/carta';
+import { MayorMenorService } from '../../services/mayormenor-service';
 
 @Component({
   selector: 'app-mayor-menor',
@@ -14,6 +15,10 @@ export class Mayormenor {
   mensaje: string = '';
   aciertos: number = 0;
   juegoTerminado: boolean = false;
+
+  constructor(private mayorMenorService: MayorMenorService) {
+    
+  }
 
   ngOnInit() {
     this.inicializarMazo();
@@ -42,6 +47,7 @@ export class Mayormenor {
     if (this.indice + 1 >= this.mazo.length) {
       this.mensaje = "¡Fin del mazo!";
       this.juegoTerminado = true;
+      this.guardarResultado(true);
       return;
     }
 
@@ -56,8 +62,16 @@ export class Mayormenor {
     } else {
       this.cartaActual = this.cartaSiguiente;
       this.mensaje = `¡Perdiste!`;
+      this.guardarResultado(false);
       this.juegoTerminado = true;
     }
+  }
+
+  private guardarResultado(gano: boolean) {
+    this.mayorMenorService.guardarResultado({
+      aciertos: this.aciertos,
+      gano: gano
+    });
   }
 
   reiniciarJuego() {
