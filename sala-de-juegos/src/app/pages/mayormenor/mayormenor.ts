@@ -15,7 +15,8 @@ export class Mayormenor {
   mensaje: string = '';
   aciertos: number = 0;
   juegoTerminado: boolean = false;
-
+  ordenPalos: string[] = ["corazones", "diamantes", "treboles", "picas"];
+  
   constructor(private mayorMenorService: MayorMenorService) {
     
   }
@@ -53,19 +54,34 @@ export class Mayormenor {
 
     this.cartaSiguiente = this.mazo[++this.indice];
 
+    const resultado = this.compararCartas(this.cartaSiguiente, this.cartaActual);
+
     if (
-      (opcion === 'mayor' && this.cartaSiguiente.valor > this.cartaActual.valor) ||
-      (opcion === 'menor' && this.cartaSiguiente.valor < this.cartaActual.valor)
+      (opcion === 'mayor' && resultado > 0) ||
+      (opcion === 'menor' && resultado < 0)
     ) {
       this.aciertos++;
       this.cartaActual = this.cartaSiguiente;
     } else {
       this.cartaActual = this.cartaSiguiente;
-      this.mensaje = `¡Perdiste!`;
+      this.mensaje = "¡Perdiste!";
       this.guardarResultado(false);
       this.juegoTerminado = true;
     }
   }
+
+  private compararCartas(c1: Carta, c2: Carta): number {
+    if (c1.valor > c2.valor) return 1;
+    if (c1.valor < c2.valor) return -1;
+
+    const i1 = this.ordenPalos.indexOf(c1.palo);
+    const i2 = this.ordenPalos.indexOf(c2.palo);
+
+    if (i1 > i2) return 1;
+    if (i1 < i2) return -1;
+    return 0;
+  }
+
 
   private guardarResultado(gano: boolean) {
     this.mayorMenorService.guardarResultado({
