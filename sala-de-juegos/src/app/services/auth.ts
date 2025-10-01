@@ -105,9 +105,12 @@ export class Auth {
         showConfirmButton: false,
         scrollbarPadding: false,
         heightAuto: false,
-      });
+      }).then(() => {
+      window.location.reload();
+    });
       this.usuarioActual.set(null);
     }
     localStorage.removeItem('usuario');
+
   }
 }
