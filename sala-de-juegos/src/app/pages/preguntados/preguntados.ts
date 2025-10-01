@@ -1,11 +1,113 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { PreguntadosService } from '../../services/preguntados-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-preguntados',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './preguntados.html',
   styleUrl: './preguntados.css'
 })
-export class Preguntados {
+export class Preguntados implements OnInit {
+  preguntas: any[] = [];
+  preguntaActual: any;
+  opciones: string[] = [];
+  indice: number = 0;
+  puntaje: number = 0;
+  juegoTerminado: boolean = false;
+  categoriaSeleccionada: string | null = null;
+  mensaje: string = '';
 
+  categorias: { key: string; label: string }[] = [
+    { key: 'geography', label: 'Geografía' },
+    { key: 'arts%26literature', label: 'Arte & Literatura' },
+    { key: 'entertainment', label: 'Entretenimiento' },
+    { key: 'science%26nature', label: 'Ciencia & Naturaleza' },
+    { key: 'sports%26leisure', label: 'Deportes & Ocio' },
+    { key: 'history', label: 'Historia' }
+  ];
+
+  constructor(
+    private preguntadosService: PreguntadosService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit() {}
+
+  seleccionarCategoria(categoriaKey: string) {
+    this.categoriaSeleccionada = categoriaKey;
+    this.indice = 0;
+    this.puntaje = 0;
+    this.juegoTerminado = false;
+    this.preguntas = [];
+    this.preguntaActual = null;
+    this.opciones = [];
+    this.mensaje = '';
+
+    this.cargarPreguntas(categoriaKey);
+  }
+
+  cargarPreguntas(categoriaKey: string) {
+    this.preguntadosService.getPreguntas(5, 1, categoriaKey).subscribe({
+      next: (data) => {
+        this.preguntas = data.questions ?? data.results ?? data ?? [];
+        if (this.preguntas.length > 0) {
+          this.setPreguntaActual();
+        } else {
+          this.mensaje = 'No se recibieron preguntas';
+        }
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Error al cargar preguntas:', err);
+        this.mensaje = 'No se pudieron cargar las preguntas';
+      }
+    });
+  }
+
+  private setPreguntaActual() {
+  this.preguntaActual = this.preguntas[this.indice];
+  if (this.preguntaActual) {
+    const todasOpciones = [
+      ...this.preguntaActual.incorrectAnswers,
+      this.preguntaActual.correctAnswers
+    ];
+
+    for (let i = todasOpciones.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [todasOpciones[i], todasOpciones[j]] = [todasOpciones[j], todasOpciones[i]];
+    }
+
+    this.opciones = todasOpciones;
+  }
+}
+
+  responder(opcion: string) {
+    if (opcion === this.preguntaActual.correctAnswers) {
+      this.puntaje++;
+    }
+
+    this.indice++;
+
+    if (this.indice < this.preguntas.length) {
+      this.setPreguntaActual();
+      this.cdr.detectChanges();
+    } else {
+      this.juegoTerminado = true;
+      this.mensaje = 'Juego terminado';
+      this.cdr.detectChanges();
+    }
+  }
+
+  reiniciarJuego() {
+    this.indice = 0;
+    this.puntaje = 0;
+    this.juegoTerminado = false;
+    this.mensaje = '';
+    if (this.preguntas.length > 0) {
+      this.setPreguntaActual();
+      this.cdr.detectChanges();
+    }
+  }
 }

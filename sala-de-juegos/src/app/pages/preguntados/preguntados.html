@@ -1,1 +1,46 @@
-<p>preguntados works!</p>
+<div class="game-container">
+    <div class="game">
+        <h1 class="titulo">Preguntados</h1>
+
+        @if (!categoriaSeleccionada) {
+        <div class="categorias-container">
+            <h3 class="elige">Elige una categoría</h3>
+            <div class="categorias">
+                @for (cat of categorias; track $index) {
+                <button (click)="seleccionarCategoria(cat.key)">
+                    {{ cat.label }}
+                </button>
+                }
+            </div>
+        </div>
+        }
+
+        @if (categoriaSeleccionada && !juegoTerminado) {
+        <div class="juego-container">
+            <p class="pregunta">{{ preguntaActual.question }}</p>
+
+            <div class="opciones">
+                @for (opcion of opciones; track $index) {
+                <button (click)="responder(opcion)">
+                    {{ opcion }}
+                </button>
+                }
+            </div>
+
+            <div class="estadisticas">
+                <p class="progreso">Pregunta {{ indice + 1 }} de {{ preguntas.length }}</p>
+                <p class="puntaje">Puntaje: {{ puntaje }}</p>
+            </div>
+        </div>
+        }
+
+        @if (juegoTerminado && categoriaSeleccionada) {
+        <div class="resultado">
+            <h3>Juego terminado</h3>
+            <p>Tu puntaje final: {{ puntaje }} / {{ preguntas.length }}</p>
+            <button class="btn-reiniciar" (click)="reiniciarJuego()">Volver a jugar</button>
+            <button class="btn-categoria" (click)="categoriaSeleccionada = null">Elegir otra categoría</button>
+        </div>
+        }
+    </div>
+</div>

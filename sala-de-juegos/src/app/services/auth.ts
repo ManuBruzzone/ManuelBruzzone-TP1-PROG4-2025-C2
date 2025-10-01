@@ -108,5 +108,6 @@ export class Auth {
       });
       this.usuarioActual.set(null);
     }
+    localStorage.removeItem('usuario');
   }
 }
