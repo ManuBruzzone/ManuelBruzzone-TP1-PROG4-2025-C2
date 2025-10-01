@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { PreguntadosService } from '../../services/preguntados-service';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './preguntados.html',
   styleUrl: './preguntados.css'
 })
-export class Preguntados implements OnInit {
+export class Preguntados {
   preguntas: any[] = [];
   preguntaActual: any;
   opciones: string[] = [];
@@ -18,6 +18,9 @@ export class Preguntados implements OnInit {
   juegoTerminado: boolean = false;
   categoriaSeleccionada: string | null = null;
   mensaje: string = '';
+
+  tiempo: number = 0;
+  private intervalo: any; 
 
   categorias: { key: string; label: string }[] = [
     { key: 'geography', label: 'Geografía' },
@@ -35,6 +38,10 @@ export class Preguntados implements OnInit {
 
   ngOnInit() {}
 
+  ngOnDestroy() {
+    clearInterval(this.intervalo);
+  }
+
   seleccionarCategoria(categoriaKey: string) {
     this.categoriaSeleccionada = categoriaKey;
     this.indice = 0;
@@ -44,6 +51,15 @@ export class Preguntados implements OnInit {
     this.preguntaActual = null;
     this.opciones = [];
     this.mensaje = '';
+    this.tiempo = 0;
+
+    clearInterval(this.intervalo);
+    this.intervalo = setInterval(() => {
+      if (!this.juegoTerminado) {
+        this.tiempo++;
+        this.cdr.detectChanges();
+      }
+    }, 1000);
 
     this.cargarPreguntas(categoriaKey);
   }
@@ -67,21 +83,21 @@ export class Preguntados implements OnInit {
   }
 
   private setPreguntaActual() {
-  this.preguntaActual = this.preguntas[this.indice];
-  if (this.preguntaActual) {
-    const todasOpciones = [
-      ...this.preguntaActual.incorrectAnswers,
-      this.preguntaActual.correctAnswers
-    ];
+    this.preguntaActual = this.preguntas[this.indice];
+    if (this.preguntaActual) {
+      const todasOpciones = [
+        ...this.preguntaActual.incorrectAnswers,
+        this.preguntaActual.correctAnswers
+      ];
 
-    for (let i = todasOpciones.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [todasOpciones[i], todasOpciones[j]] = [todasOpciones[j], todasOpciones[i]];
+      for (let i = todasOpciones.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [todasOpciones[i], todasOpciones[j]] = [todasOpciones[j], todasOpciones[i]];
+      }
+
+      this.opciones = todasOpciones;
     }
-
-    this.opciones = todasOpciones;
   }
-}
 
   responder(opcion: string) {
     if (opcion === this.preguntaActual.correctAnswers) {
@@ -90,12 +106,21 @@ export class Preguntados implements OnInit {
 
     this.indice++;
 
-    if (this.indice < this.preguntas.length) {
-      this.setPreguntaActual();
-      this.cdr.detectChanges();
-    } else {
+    if (this.indice >= this.preguntas.length) {
       this.juegoTerminado = true;
       this.mensaje = 'Juego terminado';
+      clearInterval(this.intervalo);
+
+      this.preguntadosService.guardarResultado({
+        puntaje: this.puntaje,
+        totalPreguntas: this.preguntas.length,
+        categoria: this.categoriaSeleccionada ?? 'desconocida',
+        tiempo: this.tiempo
+      });
+
+      this.cdr.detectChanges();
+    } else {
+      this.setPreguntaActual();
       this.cdr.detectChanges();
     }
   }
@@ -105,6 +130,16 @@ export class Preguntados implements OnInit {
     this.puntaje = 0;
     this.juegoTerminado = false;
     this.mensaje = '';
+    this.tiempo = 0;
+
+    clearInterval(this.intervalo);
+    this.intervalo = setInterval(() => {
+      if (!this.juegoTerminado) {
+        this.tiempo++;
+        this.cdr.detectChanges();
+      }
+    }, 1000);
+
     if (this.preguntas.length > 0) {
       this.setPreguntaActual();
       this.cdr.detectChanges();

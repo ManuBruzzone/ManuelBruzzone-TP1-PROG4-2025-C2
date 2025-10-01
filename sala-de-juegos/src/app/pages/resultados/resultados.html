@@ -77,5 +77,29 @@
             </tbody>
         </table>
         }
+
+        @if (juegoSeleccionado === 'preguntados') {
+        <h3 class="game-subtitle">Resultados de Ahorcado</h3>
+        <table class="game-table">
+            <thead>
+                <tr>
+                    <th class="table-header">Jugador</th>
+                    <th class="table-header">Puntaje</th>
+                    <th class="table-header">Categoria</th>
+                    <th class="table-header">Tiempo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (r of preguntadosResultados; track r) {
+                    <tr class="table-row">
+                    <td class="table-cell">{{ r.user_email }}</td>
+                    <td class="table-cell">{{ r.puntaje }}</td>
+                    <td class="table-cell">{{ r.categoria}}</td>
+                    <td class="table-cell">{{ r.tiempo }}s</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        }
     </div>
 </div>

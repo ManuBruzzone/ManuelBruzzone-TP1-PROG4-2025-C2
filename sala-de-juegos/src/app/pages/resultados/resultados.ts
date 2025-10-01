@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PenalesService } from '../../services/penales-service';
 import { MayorMenorService } from '../../services/mayormenor-service';
 import { AhorcadoService } from '../../services/ahorcado-service';
+import { PreguntadosService } from '../../services/preguntados-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -24,6 +25,7 @@ export class Resultados {
     private penalesService: PenalesService,
     private mayorMenorService: MayorMenorService,
     private ahorcadoService: AhorcadoService,
+    private preguntadosService: PreguntadosService,
   ) {}
 
   ngOnInit(){
@@ -34,6 +36,7 @@ export class Resultados {
     this.penalesResultados = await this.penalesService.obtenerResultados();
     this.mayormenorResultados = await this.mayorMenorService.obtenerResultados();
     this.ahorcadoResultados = await this.ahorcadoService.obtenerResultados();
+    this.preguntadosResultados = await this.preguntadosService.obtenerResultados();
   }
 
   seleccionarJuego(juego: string) {
