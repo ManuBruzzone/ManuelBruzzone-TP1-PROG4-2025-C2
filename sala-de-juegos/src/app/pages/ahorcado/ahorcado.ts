@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { AhorcadoService } from '../../services/ahorcado-service';
 
 @Component({
@@ -38,7 +38,7 @@ export class Ahorcado {
   errores: number = 0;
   private intervalo: any;
 
-  constructor(private ahorcadoService: AhorcadoService) {}
+  constructor(private ahorcadoService: AhorcadoService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(){
     this.iniciarJuego();
@@ -57,6 +57,7 @@ export class Ahorcado {
     this.intervalo = setInterval(() => {
       if (!this.mensaje) {
         this.tiempo++;
+        this.cdr.detectChanges();
       }
     }, 1000);
   }
@@ -81,7 +82,10 @@ export class Ahorcado {
       if (this.palabraElejida[i] === letra) {
         this.palabraUsuario[i] = letra;
         acierto = true;
-        this.letraAcertada.push(letra);
+        
+        if (!this.letraAcertada.includes(letra)) {
+          this.letraAcertada.push(letra);
+        }
       }
     }
 
