@@ -21,11 +21,14 @@ export class Penales {
   juegoTerminado: boolean = false;
   direcciones: string[] = ['izquierda', 'centro', 'derecha'];
   posicionArquero: string = 'centro';
+  posicionPelota: string = 'centro'; 
 
   constructor(private penalesService: PenalesService) {}
 
   patear(direccion: string) {
     if (this.juegoTerminado) return;
+
+    this.posicionPelota = direccion;
 
     const arquero = this.direcciones[Math.floor(Math.random() * this.direcciones.length)];
     this.posicionArquero = arquero;
@@ -75,5 +78,6 @@ export class Penales {
     this.mensajePerdiste = '';
     this.juegoTerminado = false;
     this.posicionArquero = 'centro';
+    this.posicionPelota = '';
   }
 }

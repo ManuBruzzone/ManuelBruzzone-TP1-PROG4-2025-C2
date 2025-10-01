@@ -12,7 +12,7 @@ export class PreguntadosService {
 
     constructor(private http: HttpClient, private auth: Auth) {}
 
-    getPreguntas(limit: number = 5, page: number = 1, category?: string, format?: string): Observable<any> {
+    getPreguntas(limit: number = 5, page: number = 1, category?: string): Observable<any> {
         const headers = new HttpHeaders({
             'Authorization': this.apiKey
         });
@@ -62,6 +62,19 @@ export class PreguntadosService {
             console.error("Error al obtener resultados de Preguntados:", error.message);
             return [];
         }
-        return data;
+
+        const categoriasMap: { [key: string]: string } = {
+            'geography': 'Geografía',
+            'arts%26literature': 'Arte & Literatura',
+            'entertainment': 'Entretenimiento',
+            'science%26nature': 'Ciencia & Naturaleza',
+            'sports%26leisure': 'Deportes & Ocio',
+            'history': 'Historia'
+        };
+        
+        return data.map((item) => ({
+            ...item,
+            categoria: categoriasMap[item.categoria] || item.categoria
+        }));
     }
 }
