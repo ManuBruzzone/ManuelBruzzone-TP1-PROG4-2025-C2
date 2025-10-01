@@ -18,6 +18,9 @@ export class Preguntados {
   juegoTerminado: boolean = false;
   categoriaSeleccionada: string | null = null;
   mensaje: string = '';
+  opcionSeleccionada: string | null = null;
+  respuestaCorrecta: string | null = null;
+  bloquearOpciones: boolean = false;
 
   tiempo: number = 0;
   private intervalo: any; 
@@ -52,6 +55,11 @@ export class Preguntados {
     this.opciones = [];
     this.mensaje = '';
     this.tiempo = 0;
+
+    this.opcionSeleccionada = null;
+    this.respuestaCorrecta = null;
+    this.bloquearOpciones = false;
+
 
     clearInterval(this.intervalo);
     this.intervalo = setInterval(() => {
@@ -100,29 +108,40 @@ export class Preguntados {
   }
 
   responder(opcion: string) {
+    if (this.bloquearOpciones) return;
+    this.bloquearOpciones = true;
+
+    this.opcionSeleccionada = opcion;
+    this.respuestaCorrecta = this.preguntaActual.correctAnswers;
+
     if (opcion === this.preguntaActual.correctAnswers) {
       this.puntaje++;
     }
 
-    this.indice++;
+    setTimeout(() => {
+      this.indice++;
 
-    if (this.indice >= this.preguntas.length) {
-      this.juegoTerminado = true;
-      this.mensaje = 'Juego terminado';
-      clearInterval(this.intervalo);
+      if (this.indice >= this.preguntas.length) {
+        this.juegoTerminado = true;
+        this.mensaje = 'Juego terminado';
+        clearInterval(this.intervalo);
 
-      this.preguntadosService.guardarResultado({
-        puntaje: this.puntaje,
-        totalPreguntas: this.preguntas.length,
-        categoria: this.categoriaSeleccionada ?? 'desconocida',
-        tiempo: this.tiempo
-      });
+        this.preguntadosService.guardarResultado({
+          puntaje: this.puntaje,
+          totalPreguntas: this.preguntas.length,
+          categoria: this.categoriaSeleccionada ?? 'desconocida',
+          tiempo: this.tiempo
+        });
 
-      this.cdr.detectChanges();
-    } else {
-      this.setPreguntaActual();
-      this.cdr.detectChanges();
-    }
+        this.cdr.detectChanges();
+      } else {
+        this.setPreguntaActual();
+        this.opcionSeleccionada = null;
+        this.respuestaCorrecta = null;
+        this.bloquearOpciones = false;
+        this.cdr.detectChanges();
+      }
+    }, 1000);
   }
 
   reiniciarJuego() {
@@ -131,6 +150,10 @@ export class Preguntados {
     this.juegoTerminado = false;
     this.mensaje = '';
     this.tiempo = 0;
+
+    this.opcionSeleccionada = null;
+    this.respuestaCorrecta = null;
+    this.bloquearOpciones = false;
 
     clearInterval(this.intervalo);
     this.intervalo = setInterval(() => {

@@ -106,6 +106,21 @@
     transform: scale(1.05);
 }
 
+button.correcta {
+    background-color: #4caf50 !important;
+    color: white;
+}
+
+button.incorrecta {
+    background-color: #f44336 !important;
+    color: white;
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
 .estadisticas {
     margin-top: 20px;
     display: flex;

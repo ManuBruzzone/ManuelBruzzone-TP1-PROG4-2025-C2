@@ -21,9 +21,16 @@
 
             <div class="opciones">
                 @for (opcion of opciones; track $index) {
-                <button (click)="responder(opcion)">
+                    <button 
+                    (click)="responder(opcion)" 
+                    [disabled]="bloquearOpciones"
+                    [ngClass]="{
+                        'correcta': opcion === respuestaCorrecta && opcionSeleccionada !== null,
+                        'incorrecta': opcion === opcionSeleccionada && opcion !== respuestaCorrecta
+                    }"
+                    >
                     {{ opcion }}
-                </button>
+                    </button>
                 }
             </div>
 
