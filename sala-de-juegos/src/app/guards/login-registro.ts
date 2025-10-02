@@ -1,22 +1,18 @@
 import { inject } from '@angular/core';
-import { CanDeactivateFn } from '@angular/router';
+import { CanActivateFn, Router } from '@angular/router';
 import { Auth } from '../services/auth';
 
-export const puedoSalirDelLoginYRegistroGuard: CanDeactivateFn<unknown> = (
-    component,
-    currentRoute,
-    currentState,
-    nextState
-    ) => {
+export const loginRegistroGuard: CanActivateFn = async (route, state) => {
     const auth = inject(Auth);
+    const router = inject(Router);
 
-    if (auth.usuarioActual()) {
-        return true;
+    const { data } = await auth.supabase.auth.getSession();
+    const user = data.session?.user ?? null;
+
+    if (user) {
+        console.log("Usuario ya logueado → redirigiendo a /bienvenida");
+        return router.parseUrl('/bienvenida');
     }
 
-    if (nextState.url === '/login' || nextState.url === '/registro') {
-        return true;
-    }
-
-    return false;
+    return true;
 };

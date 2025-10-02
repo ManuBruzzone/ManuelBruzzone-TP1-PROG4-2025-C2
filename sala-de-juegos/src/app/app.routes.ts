@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { estaLogueadoGuard } from './guards/esta-logueado-guard';
-import { puedoSalirDelLoginYRegistroGuard } from './guards/login-registro';
-import { noEstaLogueadoGuard } from './guards/no-esta-logueado';
+import { loginRegistroGuard } from './guards/login-registro';
 
 export const routes: Routes = [
     {
@@ -13,13 +12,13 @@ export const routes: Routes = [
         path: 'login',
         loadComponent: () =>
             import('./pages/login/login').then((archivo) => archivo.Login),
-        canActivate: [noEstaLogueadoGuard]
+        canActivate: [loginRegistroGuard]
     },
     {
         path: 'registro',
         loadComponent: () =>
             import('./pages/registro/registro').then((archivo) => archivo.Registro),
-        canActivate: [noEstaLogueadoGuard]
+        canActivate: [loginRegistroGuard]
     },
     {
         path: 'bienvenida',
