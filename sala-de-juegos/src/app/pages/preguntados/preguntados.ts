@@ -21,6 +21,7 @@ export class Preguntados {
   opcionSeleccionada: string | null = null;
   respuestaCorrecta: string | null = null;
   bloquearOpciones: boolean = false;
+  pagina: number = 1;
 
   tiempo: number = 0;
   private intervalo: any; 
@@ -73,7 +74,10 @@ export class Preguntados {
   }
 
   cargarPreguntas(categoriaKey: string) {
-    this.preguntadosService.getPreguntas(5, 1, categoriaKey).subscribe({
+    const page = Math.floor(Math.random() * 5) + 1;
+    console.log(page)
+
+    this.preguntadosService.getPreguntas(5, page, categoriaKey).subscribe({
       next: (data) => {
         this.preguntas = data.questions ?? data.results ?? data ?? [];
         if (this.preguntas.length > 0) {
